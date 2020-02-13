@@ -15,13 +15,18 @@ int bowlingScore(const std::vector<int>& rolls)
   int score = 0;
   int frame_start = 0;
   for (int frame = 0; frame < 10; frame++) {
-    int frame_score = rolls[frame_start] + rolls[frame_start + 1];
-    if (frame_score == 10) { // spare
-      score += frame_score + rolls[frame_start + 2]; // add one bonus roll
+    if (rolls[frame_start] == 10) { // strike
+      score += 10 + rolls[frame_start + 1] + rolls[frame_start + 2]; // add two bonus rolls
+      frame_start += 1;
     } else {
-      score += frame_score;
-    }  
-    frame_start += 2;
+      int frame_score = rolls[frame_start] + rolls[frame_start + 1];
+      if (frame_score == 10) { // spare
+	score += frame_score + rolls[frame_start + 2]; // add one bonus roll
+      } else {
+	score += frame_score;
+      }  
+      frame_start += 2;
+    }
   }
   return score;
 }
@@ -48,4 +53,11 @@ TEST(Bowling, Spare)
   std::vector<int> rolls = { 0,0, 2,3, 4,6, 3,4, 0,0,
 			     0,0, 0,0, 0,0, 0,0, 3,6, };
   EXPECT_EQ(bowlingScore(rolls), 5 + 4+6+3 + 3+4 + 3+6);
+}
+
+TEST(Bowling, Strike)
+{
+  std::vector<int> rolls = { 0,0, 2,3, 4,6, 3,4, 0,0,
+			     0,0, 10 , 1,7, 0,0, 3,6, };
+  EXPECT_EQ(bowlingScore(rolls), 5 + 4+6+3 + 3+4 + 10+1+7 + 1+7 + 3+6);
 }
