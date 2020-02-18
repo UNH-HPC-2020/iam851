@@ -33,5 +33,6 @@ if (NOT GTEST_FOUND)
   target_link_libraries(GTest::Main INTERFACE gtest_main)
 endif()
 
-add_subdirectory(c)
+add_subdirectory(c) 
+add_subdirectory(cxx) 
 
