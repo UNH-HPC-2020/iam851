@@ -18,6 +18,9 @@ program main
   
   print *, 'print_matrix'
   call print_matrix(A)
-  
+
+  print *, 'print_matrix_linear'
+  call print_matrix_linear(A, N*M)
+
 end program main
 
