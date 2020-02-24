@@ -27,6 +27,12 @@ int main(int argc, char** argv)
   vector_add(&x, &y, &z);
   assert(VEC(&z, 0) == 3. && VEC(&z, 1) == 5. && VEC(&z, 2) == 7. && VEC(&z, 3) == 9.);
 
+  printf("{");
+  for (int i = 0; i < 4; i++) {
+    printf(" %g", VEC(&z, i));
+  }
+  printf(" }\n");
+
   vector_destruct(&x);
   vector_destruct(&y);
   vector_destruct(&z);
