@@ -43,6 +43,7 @@ struct matrix {
 
 void matrix_construct(struct matrix *A, int m, int n);
 void matrix_destruct(struct matrix *A);
+void matrix_print(const struct matrix *A);
 
 double vector_dot(const struct vector *x, const struct vector *y);
 void vector_add(const struct vector* x, const struct vector* y, const struct vector *z);
