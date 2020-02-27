@@ -4,11 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void matrix_construct(struct matrix& A, int m, int n)
+matrix::matrix(int _m, int _n)
 {
-  A.data = (double*)calloc(m * n, sizeof(*A.data));
-  A.m = m;
-  A.n = n;
+  data = (double*)calloc(_m * _n, sizeof(*data));
+  m = _m;
+  n = _n;
 }
 
 void matrix_destruct(struct matrix& A)

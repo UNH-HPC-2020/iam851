@@ -9,10 +9,8 @@
 TEST(LinearAlgebra, VectorDot)
 {
   const int N = 3;
-  struct vector x;
-  vector_construct(x, N);
-  struct vector y;
-  vector_construct(y, N);
+  struct vector x(N);
+  struct vector y(N);
 
   for (int i = 0; i < N; i++) {
     VEC(x, i) = 1. + i;
@@ -28,12 +26,9 @@ TEST(LinearAlgebra, VectorDot)
 TEST(LinearAlgebra, VectorAdd)
 {
   const int N = 4;
-  struct vector x;
-  vector_construct(x, N);
-  struct vector y;
-  vector_construct(y, N);
-  struct vector z;
-  vector_construct(z, N);
+  struct vector x(N);
+  struct vector y(N);
+  struct vector z(N);
 
   for (int i = 0; i < N; i++) {
     VEC(x, i) = 1. + i;
@@ -41,7 +36,8 @@ TEST(LinearAlgebra, VectorAdd)
   }
 
   vector_add(x, y, z);
-  EXPECT_TRUE(VEC(z, 0) == 3. && VEC(z, 1) == 5. && VEC(z, 2) == 7. && VEC(z, 3) == 9.);
+  EXPECT_TRUE(VEC(z, 0) == 3. && VEC(z, 1) == 5. && VEC(z, 2) == 7. &&
+              VEC(z, 3) == 9.);
 
   vector_destruct(x);
   vector_destruct(y);
@@ -51,12 +47,9 @@ TEST(LinearAlgebra, VectorAdd)
 TEST(LinearAlgebra, MatrixVectorMul)
 {
   const int N = 3;
-  struct vector x;
-  vector_construct(x, N);
-  struct vector y;
-  vector_construct(y, N);
-  struct matrix A;
-  matrix_construct(A, N, N);
+  struct vector x(N);
+  struct vector y(N);
+  struct matrix A(N, N);
 
   for (int i = 0; i < N; i++) {
     VEC(x, i) = 1. + i;
