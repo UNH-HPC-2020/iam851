@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void vector_construct(struct vector* v, int n)
+void vector_construct(struct vector& v, int n)
 {
-  v->data = (double*)calloc(n, sizeof(*v->data));
-  v->n = n;
+  v.data = (double*)calloc(n, sizeof(*v.data));
+  v.n = n;
 }
 
 void vector_destruct(struct vector* v)
