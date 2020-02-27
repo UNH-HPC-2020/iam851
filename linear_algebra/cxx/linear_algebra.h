@@ -10,6 +10,8 @@ struct vector
 {
   double* data;
   int n;
+
+  void print();
 };
 
 #ifdef BOUNDS_CHECK
@@ -22,9 +24,8 @@ struct vector
 #define VEC(v, i) ((v).data[i])
 #endif
 
-void vector_construct(struct vector& v, int n);
-void vector_destruct(struct vector& v);
-void vector_print(const struct vector& v);
+void vector_construct(struct vector &v, int n);
+void vector_destruct(struct vector &v);
 
 struct matrix
 {

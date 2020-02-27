@@ -15,11 +15,11 @@ void vector_destruct(struct vector& v)
   free(v.data);
 }
 
-void vector_print(const struct vector& v)
+void vector::print()
 {
   printf("{");
-  for (int i = 0; i < v.n; i++) {
-    printf(" %g", VEC(v, i));
+  for (int i = 0; i < n; i++) {
+    printf(" %g", VEC(*this, i));
   }
   printf(" }\n");
 }
