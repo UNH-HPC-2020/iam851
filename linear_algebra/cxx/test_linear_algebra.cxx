@@ -45,9 +45,9 @@ TEST(LinearAlgebra, MatrixVectorMul)
 
   for (int i = 0; i < N; i++) {
     x(i) = 1. + i;
-    MAT(A, i, i) = 1. + i;
+    A(i, i) = 1. + i;
   }
-  MAT(A, 0, 1) = 1.; // make the matrix not purely diagonal
+  A(0, 1) = 1.; // make the matrix not purely diagonal
 
   matrix_vector_mul(A, x, y);
   EXPECT_TRUE(y(0) == 3. && y(1) == 4. && y(2) == 9.);

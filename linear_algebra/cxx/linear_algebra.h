@@ -41,19 +41,26 @@ struct matrix
   matrix(int m, int n);
   ~matrix();
 
+  double operator()(int i, int j) const
+  {
+#ifdef BOUNDS_CHECK
+    assert(i >= 0 && i < m);
+    assert(j >= 0 && j < n);
+#endif
+    return data[i * n + j];
+  }
+
+  double& operator()(int i, int j)
+  {
+#ifdef BOUNDS_CHECK
+    assert(i >= 0 && i < m);
+    assert(j >= 0 && j < n);
+#endif
+    return data[i * n + j];
+  }
+
   void print() const;
 };
-
-#ifdef BOUNDS_CHECK
-#define MAT(A, i, j)                                                           \
-  (*({                                                                         \
-    assert(i >= 0 && i < (A).m);                                               \
-    assert(j >= 0 && j < (A).n);                                               \
-    &(A).data[i * (A).n + j];                                                  \
-  }))
-#else
-#define MAT(A, i, j) ((A).data[i * (A).n + j])
-#endif
 
 double vector_dot(const struct vector& x, const struct vector& y);
 void vector_add(const struct vector& x, const struct vector& y,

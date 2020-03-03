@@ -22,7 +22,7 @@ void matrix::print() const
   for (int i = 0; i < m; i++) {
     printf("{");
     for (int j = 0; j < n; j++) {
-      printf(" %g", MAT(*this, i, j));
+      printf(" %g", (*this)(i, j));
     }
     printf(" }\n");
   }

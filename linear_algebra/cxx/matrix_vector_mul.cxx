@@ -12,7 +12,7 @@ void matrix_vector_mul(const struct matrix& A, const struct vector& x,
   for (int i = 0; i < y.n; i++) {
     y(i) = 0.;
     for (int j = 0; j < x.n; j++) {
-      y(i) += MAT(A, i, j) * x(j);
+      y(i) += A(i, j) * x(j);
     }
   }
 }
