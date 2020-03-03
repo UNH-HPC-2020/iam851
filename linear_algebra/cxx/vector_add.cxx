@@ -4,7 +4,7 @@
 #include <assert.h>
 
 void vector_add(const struct vector& x, const struct vector& y,
-                const struct vector& z)
+                struct vector& z)
 {
   assert(x.n == y.n && x.n == z.n);
 
