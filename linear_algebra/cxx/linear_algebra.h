@@ -6,11 +6,9 @@
 
 //#define BOUNDS_CHECK
 
-struct vector
+class vector
 {
-  double* data_;
-  int n_;
-
+public:
   vector(int n);
   ~vector();
 
@@ -33,6 +31,10 @@ struct vector
   }
 
   void print() const;
+
+private:
+  double* data_;
+  int n_;
 };
 
 struct matrix
