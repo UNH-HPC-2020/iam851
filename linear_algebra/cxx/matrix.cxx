@@ -4,24 +4,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-matrix::matrix(int _m, int _n)
+matrix::matrix(int m, int n)
 {
-  data = new double[_m * _n];
-  m = _m;
-  n = _n;
+  data_ = new double[m * n];
+  m_ = m;
+  n_ = n;
 }
 
 matrix::~matrix()
 {
-  delete[] data;
+  delete[] data_;
 }
 
 void matrix::print() const
 {
   printf("{\n");
-  for (int i = 0; i < m; i++) {
+  for (int i = 0; i < n_rows(); i++) {
     printf("{");
-    for (int j = 0; j < n; j++) {
+    for (int j = 0; j < n_cols(); j++) {
       printf(" %g", (*this)(i, j));
     }
     printf(" }\n");

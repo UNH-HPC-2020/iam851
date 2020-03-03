@@ -37,33 +37,38 @@ private:
   int n_;
 };
 
-struct matrix
+class matrix
 {
-  double* data;
-  int m, n;
-
+public:
   matrix(int m, int n);
   ~matrix();
+
+  int n_rows() const { return m_; }
+  int n_cols() const { return n_; }
 
   double operator()(int i, int j) const
   {
 #ifdef BOUNDS_CHECK
-    assert(i >= 0 && i < m);
-    assert(j >= 0 && j < n);
+    assert(i >= 0 && i < m_);
+    assert(j >= 0 && j < n_);
 #endif
-    return data[i * n + j];
+    return data_[i * n_ + j];
   }
 
   double& operator()(int i, int j)
   {
 #ifdef BOUNDS_CHECK
-    assert(i >= 0 && i < m);
-    assert(j >= 0 && j < n);
+    assert(i >= 0 && i < m_);
+    assert(j >= 0 && j < n_);
 #endif
-    return data[i * n + j];
+    return data_[i * n_ + j];
   }
 
   void print() const;
+
+private:
+  double* data_;
+  int m_, n_;
 };
 
 double vector_dot(const vector& x, const vector& y);
