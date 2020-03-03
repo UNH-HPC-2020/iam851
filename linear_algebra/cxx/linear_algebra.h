@@ -61,6 +61,7 @@ class matrix
 {
 public:
   matrix(int m, int n);
+  matrix(std::initializer_list<std::initializer_list<double>> l);
 
   int n_rows() const { return m_; }
   int n_cols() const { return n_; }
