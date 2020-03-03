@@ -3,10 +3,11 @@
 
 #include <cassert>
 
-void matrix_vector_mul(const matrix& A, const vector& x, vector& y)
+vector matrix_vector_mul(const matrix& A, const vector& x)
 {
-  assert(A.n_rows() == y.size());
   assert(A.n_cols() == x.size());
+
+  vector y(A.n_rows());
 
   for (int i = 0; i < y.size(); i++) {
     y(i) = 0.;
@@ -14,4 +15,6 @@ void matrix_vector_mul(const matrix& A, const vector& x, vector& y)
       y(i) += A(i, j) * x(j);
     }
   }
+
+  return y;
 }

@@ -25,14 +25,13 @@ TEST(LinearAlgebra, VectorAdd)
   const int N = 4;
   vector x(N);
   vector y(N);
-  vector z(N);
 
   for (int i = 0; i < N; i++) {
     x(i) = 1. + i;
     y(i) = 2. + i;
   }
 
-  vector_add(x, y, z);
+  vector z = vector_add(x, y);
   EXPECT_TRUE(z(0) == 3. && z(1) == 5. && z(2) == 7. && z(3) == 9.);
 }
 
@@ -40,7 +39,6 @@ TEST(LinearAlgebra, MatrixVectorMul)
 {
   const int N = 3;
   vector x(N);
-  vector y(N);
   matrix A(N, N);
 
   for (int i = 0; i < N; i++) {
@@ -49,6 +47,6 @@ TEST(LinearAlgebra, MatrixVectorMul)
   }
   A(0, 1) = 1.; // make the matrix not purely diagonal
 
-  matrix_vector_mul(A, x, y);
+  vector y = matrix_vector_mul(A, x);
   EXPECT_TRUE(y(0) == 3. && y(1) == 4. && y(2) == 9.);
 }
