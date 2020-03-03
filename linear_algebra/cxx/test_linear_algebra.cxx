@@ -17,7 +17,7 @@ TEST(LinearAlgebra, VectorDot)
     y(i) = 2. + i;
   }
 
-  EXPECT_EQ(vector_dot(x, y), 20);
+  EXPECT_EQ(dot(x, y), 20);
 }
 
 TEST(LinearAlgebra, VectorAdd)
@@ -31,7 +31,7 @@ TEST(LinearAlgebra, VectorAdd)
     y(i) = 2. + i;
   }
 
-  vector z = vector_add(x, y);
+  vector z = x + y;
   EXPECT_TRUE(z(0) == 3. && z(1) == 5. && z(2) == 7. && z(3) == 9.);
 }
 
@@ -47,6 +47,6 @@ TEST(LinearAlgebra, MatrixVectorMul)
   }
   A(0, 1) = 1.; // make the matrix not purely diagonal
 
-  vector y = matrix_vector_mul(A, x);
+  vector y = A * x;
   EXPECT_TRUE(y(0) == 3. && y(1) == 4. && y(2) == 9.);
 }

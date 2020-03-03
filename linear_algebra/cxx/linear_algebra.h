@@ -70,9 +70,9 @@ private:
   int m_, n_;
 };
 
-double vector_dot(const vector& x, const vector& y);
-vector vector_add(const vector& x, const vector& y);
-vector matrix_vector_mul(const matrix& A, const vector& x);
+double dot(const vector& x, const vector& y);
+vector operator+(const vector& x, const vector& y);
+vector operator*(const matrix& A, const vector& x);
 
 // ----------------------------------------------------------------------
 

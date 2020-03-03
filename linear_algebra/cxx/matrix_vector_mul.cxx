@@ -3,7 +3,7 @@
 
 #include <cassert>
 
-vector matrix_vector_mul(const matrix& A, const vector& x)
+vector operator*(const matrix& A, const vector& x)
 {
   assert(A.n_cols() == x.size());
 
