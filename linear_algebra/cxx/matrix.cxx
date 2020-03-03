@@ -22,7 +22,7 @@ void matrix_print(const struct matrix& A)
   for (int i = 0; i < A.m; i++) {
     printf("{");
     for (int j = 0; j < A.n; j++) {
-      printf(" %g", MAT(&A, i, j));
+      printf(" %g", MAT(A, i, j));
     }
     printf(" }\n");
   }
