@@ -5,21 +5,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-vector::vector(int _n)
+vector::vector(int n)
 {
-  data = new double[_n]();
-  n = _n;
+  data_ = new double[n]();
+  n_ = n;
 }
 
 vector::~vector()
 {
-  delete[] data;
+  delete[] data_;
 }
 
 void vector::print() const
 {
   printf("{");
-  for (int i = 0; i < n; i++) {
+  for (int i = 0; i < n_; i++) {
     printf(" %g", (*this)(i));
   }
   printf(" }\n");

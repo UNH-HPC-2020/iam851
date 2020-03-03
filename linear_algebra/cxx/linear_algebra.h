@@ -8,28 +8,28 @@
 
 struct vector
 {
-  double* data;
-  int n;
+  double* data_;
+  int n_;
 
   vector(int n);
   ~vector();
 
-  int size() const { return n; }
+  int size() const { return n_; }
 
   double operator()(int i) const
   {
 #ifdef BOUNDS_CHECK
-    assert(i >= 0 && i < n);
+    assert(i >= 0 && i < n_);
 #endif
-    return data[i];
+    return data_[i];
   }
 
   double& operator()(int i)
   {
 #ifdef BOUNDS_CHECK
-    assert(i >= 0 && i < n);
+    assert(i >= 0 && i < n_);
 #endif
-    return data[i];
+    return data_[i];
   }
 
   void print() const;
