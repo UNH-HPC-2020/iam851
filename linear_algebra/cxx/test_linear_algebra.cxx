@@ -9,8 +9,8 @@
 TEST(LinearAlgebra, VectorDot)
 {
   const int N = 3;
-  struct vector x(N);
-  struct vector y(N);
+  vector x(N);
+  vector y(N);
 
   for (int i = 0; i < N; i++) {
     x(i) = 1. + i;
@@ -23,9 +23,9 @@ TEST(LinearAlgebra, VectorDot)
 TEST(LinearAlgebra, VectorAdd)
 {
   const int N = 4;
-  struct vector x(N);
-  struct vector y(N);
-  struct vector z(N);
+  vector x(N);
+  vector y(N);
+  vector z(N);
 
   for (int i = 0; i < N; i++) {
     x(i) = 1. + i;
@@ -39,9 +39,9 @@ TEST(LinearAlgebra, VectorAdd)
 TEST(LinearAlgebra, MatrixVectorMul)
 {
   const int N = 3;
-  struct vector x(N);
-  struct vector y(N);
-  struct matrix A(N, N);
+  vector x(N);
+  vector y(N);
+  matrix A(N, N);
 
   for (int i = 0; i < N; i++) {
     x(i) = 1. + i;
@@ -52,5 +52,3 @@ TEST(LinearAlgebra, MatrixVectorMul)
   matrix_vector_mul(A, x, y);
   EXPECT_TRUE(y(0) == 3. && y(1) == 4. && y(2) == 9.);
 }
-
-

@@ -62,11 +62,9 @@ struct matrix
   void print() const;
 };
 
-double vector_dot(const struct vector& x, const struct vector& y);
-void vector_add(const struct vector& x, const struct vector& y,
-                struct vector& z);
-void matrix_vector_mul(const struct matrix& A, const struct vector& x,
-                       struct vector& y);
+double vector_dot(const vector& x, const vector& y);
+void vector_add(const vector& x, const vector& y, vector& z);
+void matrix_vector_mul(const matrix& A, const vector& x, vector& y);
 
 // ----------------------------------------------------------------------
 

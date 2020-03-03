@@ -1,9 +1,9 @@
 
 #include "linear_algebra.h"
 
-#include <assert.h>
+#include <cassert>
 
-double vector_dot(const struct vector& x, const struct vector& y)
+double vector_dot(const vector& x, const vector& y)
 {
   assert(x.n == y.n); // can only dot vectors of same length
 

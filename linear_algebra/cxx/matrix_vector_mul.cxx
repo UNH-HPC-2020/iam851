@@ -1,10 +1,9 @@
 
 #include "linear_algebra.h"
 
-#include <assert.h>
+#include <cassert>
 
-void matrix_vector_mul(const struct matrix& A, const struct vector& x,
-                       struct vector& y)
+void matrix_vector_mul(const matrix& A, const vector& x, vector& y)
 {
   assert(A.m == y.n);
   assert(A.n == x.n);

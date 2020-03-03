@@ -1,10 +1,9 @@
 
 #include "linear_algebra.h"
 
-#include <assert.h>
+#include <cassert>
 
-void vector_add(const struct vector& x, const struct vector& y,
-                struct vector& z)
+void vector_add(const vector& x, const vector& y, vector& z)
 {
   assert(x.n == y.n && x.n == z.n);
 
