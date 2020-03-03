@@ -5,11 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-vector::vector(int n)
-{
-  data_ = new double[n]();
-  n_ = n;
-}
+vector::vector(int n) : data_(new double[n]()), n_(n) {}
 
 vector::~vector()
 {

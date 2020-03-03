@@ -4,12 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-matrix::matrix(int m, int n)
-{
-  data_ = new double[m * n];
-  m_ = m;
-  n_ = n;
-}
+matrix::matrix(int m, int n) : data_(new double[m * n]()), m_(m), n_(n) {}
 
 matrix::~matrix()
 {
