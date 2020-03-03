@@ -16,11 +16,12 @@ vector::~vector()
   delete[] data_;
 }
 
-void vector::print() const
+std::ostream& operator<<(std::ostream& of, const vector& v)
 {
-  printf("{");
-  for (int i = 0; i < n_; i++) {
-    printf(" %g", (*this)(i));
+  of << "{";
+  for (int i = 0; i < v.size(); i++) {
+    of << " " << v(i);
   }
-  printf(" }\n");
+  of << " }";
+  return of;
 }

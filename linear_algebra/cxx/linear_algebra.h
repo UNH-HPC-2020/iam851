@@ -2,7 +2,8 @@
 #ifndef LINEAR_ALGEBRA_H
 #define LINEAR_ALGEBRA_H
 
-#include <assert.h>
+#include <cassert>
+#include <iostream>
 
 //#define BOUNDS_CHECK
 
@@ -30,12 +31,12 @@ public:
     return data_[i];
   }
 
-  void print() const;
-
 private:
   double* data_;
   int n_;
 };
+
+std::ostream& operator<<(std::ostream& of, const vector& v);
 
 class matrix
 {
