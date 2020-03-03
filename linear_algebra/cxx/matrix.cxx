@@ -11,9 +11,9 @@ matrix::matrix(int _m, int _n)
   n = _n;
 }
 
-void matrix_destruct(struct matrix& A)
+matrix::~matrix()
 {
-  free(A.data);
+  free(data);
 }
 
 void matrix::print() const

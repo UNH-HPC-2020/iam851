@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 
 vector::vector(int _n)
 {
@@ -10,9 +11,9 @@ vector::vector(int _n)
   n = _n;
 }
 
-void vector_destruct(struct vector& v)
+vector::~vector()
 {
-  free(v.data);
+  free(data);
 }
 
 void vector::print() const

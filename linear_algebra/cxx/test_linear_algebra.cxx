@@ -18,9 +18,6 @@ TEST(LinearAlgebra, VectorDot)
   }
 
   EXPECT_EQ(vector_dot(x, y), 20);
-
-  vector_destruct(x);
-  vector_destruct(y);
 }
 
 TEST(LinearAlgebra, VectorAdd)
@@ -38,10 +35,6 @@ TEST(LinearAlgebra, VectorAdd)
   vector_add(x, y, z);
   EXPECT_TRUE(VEC(z, 0) == 3. && VEC(z, 1) == 5. && VEC(z, 2) == 7. &&
               VEC(z, 3) == 9.);
-
-  vector_destruct(x);
-  vector_destruct(y);
-  vector_destruct(z);
 }
 
 TEST(LinearAlgebra, MatrixVectorMul)
@@ -59,8 +52,4 @@ TEST(LinearAlgebra, MatrixVectorMul)
 
   matrix_vector_mul(A, x, y);
   EXPECT_TRUE(VEC(y, 0) == 3. && VEC(y, 1) == 4. && VEC(y, 2) == 9.);
-
-  vector_destruct(x);
-  vector_destruct(y);
-  matrix_destruct(A);
 }

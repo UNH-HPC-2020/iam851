@@ -12,21 +12,20 @@ struct vector
   int n;
 
   vector(int n);
+  ~vector();
   
   void print() const;
 };
 
 #ifdef BOUNDS_CHECK
-#define VEC(v, i)				\
-  (*({						\
-      assert(i >= 0 && i < (v).n);		\
-      &(v).data[i];				\
-    }))
+#define VEC(v, i)                                                              \
+  (*({                                                                         \
+    assert(i >= 0 && i < (v).n);                                               \
+    &(v).data[i];                                                              \
+  }))
 #else
 #define VEC(v, i) ((v).data[i])
 #endif
-
-void vector_destruct(struct vector &v);
 
 struct matrix
 {
@@ -34,6 +33,7 @@ struct matrix
   int m, n;
 
   matrix(int m, int n);
+  ~matrix();
 
   void print() const;
 };
@@ -41,16 +41,13 @@ struct matrix
 #ifdef BOUNDS_CHECK
 #define MAT(A, i, j)                                                           \
   (*({                                                                         \
-    assert(i >= 0 && i < (A).m);                                              \
-    assert(j >= 0 && j < (A).n);                                              \
-    &(A).data[i * (A).n + j];                                                \
+    assert(i >= 0 && i < (A).m);                                               \
+    assert(j >= 0 && j < (A).n);                                               \
+    &(A).data[i * (A).n + j];                                                  \
   }))
 #else
 #define MAT(A, i, j) ((A).data[i * (A).n + j])
 #endif
-
-void matrix_construct(struct matrix& A, int m, int n);
-void matrix_destruct(struct matrix& A);
 
 double vector_dot(const struct vector& x, const struct vector& y);
 void vector_add(const struct vector& x, const struct vector& y,
