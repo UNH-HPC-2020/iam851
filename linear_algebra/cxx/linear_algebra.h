@@ -14,7 +14,7 @@ struct vector
   vector(int n);
   ~vector();
 
-  double at(int i) const
+  double operator()(int i) const
   {
 #ifdef BOUNDS_CHECK
     assert(i >= 0 && i < n);
@@ -22,7 +22,7 @@ struct vector
     return data[i];
   }
 
-  double& at(int i)
+  double& operator()(int i)
   {
 #ifdef BOUNDS_CHECK
     assert(i >= 0 && i < n);
