@@ -8,45 +8,30 @@
 
 TEST(LinearAlgebra, VectorDot)
 {
-  const int N = 3;
-  vector x(N);
-  vector y(N);
-
-  for (int i = 0; i < N; i++) {
-    x(i) = 1. + i;
-    y(i) = 2. + i;
-  }
+  vector x = { 1., 2., 3. };
+  vector y = { 2., 3., 4. };
 
   EXPECT_EQ(dot(x, y), 20);
 }
 
 TEST(LinearAlgebra, VectorAdd)
 {
-  const int N = 4;
-  vector x(N);
-  vector y(N);
+  vector x = { 1., 2., 3., 4. };
+  vector y = { 2., 3., 4., 5. };
 
-  for (int i = 0; i < N; i++) {
-    x(i) = 1. + i;
-    y(i) = 2. + i;
-  }
-
-  vector z = x + y;
-  EXPECT_TRUE(z(0) == 3. && z(1) == 5. && z(2) == 7. && z(3) == 9.);
+  EXPECT_EQ(x + y, (vector{3., 5., 7., 9.}));
 }
 
 TEST(LinearAlgebra, MatrixVectorMul)
 {
   const int N = 3;
-  vector x(N);
+  vector x = { 1., 2., 3. };
   matrix A(N, N);
 
   for (int i = 0; i < N; i++) {
-    x(i) = 1. + i;
     A(i, i) = 1. + i;
   }
   A(0, 1) = 1.; // make the matrix not purely diagonal
 
-  vector y = A * x;
-  EXPECT_TRUE(y(0) == 3. && y(1) == 4. && y(2) == 9.);
+  EXPECT_EQ(A * x, (vector{3., 4., 9.}));
 }

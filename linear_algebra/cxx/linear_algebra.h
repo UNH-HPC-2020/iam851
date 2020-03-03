@@ -12,9 +12,29 @@ class vector
 {
 public:
   vector(int n);
+  vector(std::initializer_list<double> l);
 
   int size() const { return data_.size(); }
 
+  bool operator==(const vector& o) const
+  {
+    if (o.size() != size()) {
+      return false;
+    }
+
+    for (int i = 0; i < size(); i++) {
+      if ((*this)(i) != o(i)) {
+	return false;
+      }
+    }
+    return true;
+  }
+
+  bool operator!=(const vector& o) const
+  {
+    return !(*this == o);
+  }
+  
   double operator()(int i) const
   {
 #ifdef BOUNDS_CHECK

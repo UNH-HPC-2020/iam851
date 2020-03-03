@@ -7,6 +7,8 @@
 
 vector::vector(int n) : data_(n) {}
 
+vector::vector(std::initializer_list<double> l) : data_(l) {}
+
 std::ostream& operator<<(std::ostream& of, const vector& v)
 {
   of << "{";
