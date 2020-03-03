@@ -13,8 +13,8 @@ TEST(LinearAlgebra, VectorDot)
   struct vector y(N);
 
   for (int i = 0; i < N; i++) {
-    VEC(x, i) = 1. + i;
-    VEC(y, i) = 2. + i;
+    x(i) = 1. + i;
+    y(i) = 2. + i;
   }
 
   EXPECT_EQ(vector_dot(x, y), 20);
@@ -44,11 +44,13 @@ TEST(LinearAlgebra, MatrixVectorMul)
   struct matrix A(N, N);
 
   for (int i = 0; i < N; i++) {
-    VEC(x, i) = 1. + i;
+    x(i) = 1. + i;
     MAT(A, i, i) = 1. + i;
   }
   MAT(A, 0, 1) = 1.; // make the matrix not purely diagonal
 
   matrix_vector_mul(A, x, y);
-  EXPECT_TRUE(VEC(y, 0) == 3. && VEC(y, 1) == 4. && VEC(y, 2) == 9.);
+  EXPECT_TRUE(y(0) == 3. && y(1) == 4. && y(2) == 9.);
 }
+
+

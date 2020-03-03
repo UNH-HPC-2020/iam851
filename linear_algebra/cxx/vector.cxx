@@ -20,7 +20,7 @@ void vector::print() const
 {
   printf("{");
   for (int i = 0; i < n; i++) {
-    printf(" %g", VEC(*this, i));
+    printf(" %g", (*this)(i));
   }
   printf(" }\n");
 }

@@ -10,9 +10,9 @@ void matrix_vector_mul(const struct matrix& A, const struct vector& x,
   assert(A.n == x.n);
 
   for (int i = 0; i < y.n; i++) {
-    VEC(y, i) = 0.;
+    y(i) = 0.;
     for (int j = 0; j < x.n; j++) {
-      VEC(y, i) += MAT(A, i, j) * VEC(x, j);
+      y(i) += MAT(A, i, j) * x(j);
     }
   }
 }
