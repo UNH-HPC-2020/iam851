@@ -14,6 +14,8 @@ struct vector
   vector(int n);
   ~vector();
 
+  int size() const { return n; }
+
   double operator()(int i) const
   {
 #ifdef BOUNDS_CHECK
