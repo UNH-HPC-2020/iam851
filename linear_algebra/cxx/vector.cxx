@@ -5,12 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-vector::vector(int n) : data_(new double[n]()), n_(n) {}
-
-vector::~vector()
-{
-  delete[] data_;
-}
+vector::vector(int n) : data_(n) {}
 
 std::ostream& operator<<(std::ostream& of, const vector& v)
 {

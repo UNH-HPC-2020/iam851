@@ -4,6 +4,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <vector>
 
 //#define BOUNDS_CHECK
 
@@ -11,14 +12,13 @@ class vector
 {
 public:
   vector(int n);
-  ~vector();
 
-  int size() const { return n_; }
+  int size() const { return data_.size(); }
 
   double operator()(int i) const
   {
 #ifdef BOUNDS_CHECK
-    assert(i >= 0 && i < n_);
+    assert(i >= 0 && i < size());
 #endif
     return data_[i];
   }
@@ -26,14 +26,13 @@ public:
   double& operator()(int i)
   {
 #ifdef BOUNDS_CHECK
-    assert(i >= 0 && i < n_);
+    assert(i >= 0 && i < size());
 #endif
     return data_[i];
   }
 
 private:
-  double* data_;
-  int n_;
+  std::vector<double> data_;
 };
 
 std::ostream& operator<<(std::ostream& of, const vector& v);
@@ -42,7 +41,6 @@ class matrix
 {
 public:
   matrix(int m, int n);
-  ~matrix();
 
   int n_rows() const { return m_; }
   int n_cols() const { return n_; }
@@ -68,7 +66,7 @@ public:
   void print() const;
 
 private:
-  double* data_;
+  std::vector<double> data_;
   int m_, n_;
 };
 
