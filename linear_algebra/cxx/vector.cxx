@@ -15,7 +15,7 @@ void vector_destruct(struct vector& v)
   free(v.data);
 }
 
-void vector::print()
+void vector::print() const
 {
   printf("{");
   for (int i = 0; i < n; i++) {

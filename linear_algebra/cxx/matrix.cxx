@@ -16,13 +16,13 @@ void matrix_destruct(struct matrix& A)
   free(A.data);
 }
 
-void matrix_print(const struct matrix& A)
+void matrix::print() const
 {
   printf("{\n");
-  for (int i = 0; i < A.m; i++) {
+  for (int i = 0; i < m; i++) {
     printf("{");
-    for (int j = 0; j < A.n; j++) {
-      printf(" %g", MAT(A, i, j));
+    for (int j = 0; j < n; j++) {
+      printf(" %g", MAT(*this, i, j));
     }
     printf(" }\n");
   }
