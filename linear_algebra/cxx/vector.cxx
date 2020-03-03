@@ -7,13 +7,13 @@
 
 vector::vector(int _n)
 {
-  data = (double*)calloc(_n, sizeof(*data));
+  data = new double[_n]();
   n = _n;
 }
 
 vector::~vector()
 {
-  free(data);
+  delete[] data;
 }
 
 void vector::print() const

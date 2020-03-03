@@ -6,14 +6,14 @@
 
 matrix::matrix(int _m, int _n)
 {
-  data = (double*)calloc(_m * _n, sizeof(*data));
+  data = new double[_m * _n];
   m = _m;
   n = _n;
 }
 
 matrix::~matrix()
 {
-  free(data);
+  delete[] data;
 }
 
 void matrix::print() const
