@@ -30,5 +30,5 @@ TEST(LinearAlgebra, MatrixVectorMul)
 	      {3., 4., 5.}};
   // clang-format on
 
-  EXPECT_EQ(A * x, (vector{14., 26.}));
+  EXPECT_EQ(dot(A, x), (vector{14., 26.}));
 }

@@ -2,60 +2,15 @@
 #ifndef LINEAR_ALGEBRA_H
 #define LINEAR_ALGEBRA_H
 
+#include <xtensor/xtensor.hpp>
+
 #include <cassert>
 #include <iostream>
 #include <vector>
 
 //#define BOUNDS_CHECK
 
-class vector
-{
-public:
-  vector(int n);
-  vector(std::initializer_list<double> l);
-
-  int size() const { return data_.size(); }
-
-  bool operator==(const vector& o) const
-  {
-    if (o.size() != size()) {
-      return false;
-    }
-
-    for (int i = 0; i < size(); i++) {
-      if ((*this)(i) != o(i)) {
-	return false;
-      }
-    }
-    return true;
-  }
-
-  bool operator!=(const vector& o) const
-  {
-    return !(*this == o);
-  }
-  
-  double operator()(int i) const
-  {
-#ifdef BOUNDS_CHECK
-    assert(i >= 0 && i < size());
-#endif
-    return data_[i];
-  }
-
-  double& operator()(int i)
-  {
-#ifdef BOUNDS_CHECK
-    assert(i >= 0 && i < size());
-#endif
-    return data_[i];
-  }
-
-private:
-  std::vector<double> data_;
-};
-
-std::ostream& operator<<(std::ostream& of, const vector& v);
+using vector = xt::xtensor<double, 1>;
 
 class matrix
 {
@@ -92,8 +47,7 @@ private:
 };
 
 double dot(const vector& x, const vector& y);
-vector operator+(const vector& x, const vector& y);
-vector operator*(const matrix& A, const vector& x);
+vector dot(const matrix& A, const vector& x);
 
 // ----------------------------------------------------------------------
 
