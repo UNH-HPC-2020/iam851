@@ -13,7 +13,23 @@ struct vector
 
   vector(int n);
   ~vector();
-  
+
+  double at(int i) const
+  {
+#ifdef BOUNDS_CHECK
+    assert(i >= 0 && i < n);
+#endif
+    return data[i];
+  }
+
+  double& at(int i)
+  {
+#ifdef BOUNDS_CHECK
+    assert(i >= 0 && i < n);
+#endif
+    return data[i];
+  }
+
   void print() const;
 };
 

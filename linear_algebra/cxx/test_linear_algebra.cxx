@@ -28,13 +28,12 @@ TEST(LinearAlgebra, VectorAdd)
   struct vector z(N);
 
   for (int i = 0; i < N; i++) {
-    VEC(x, i) = 1. + i;
-    VEC(y, i) = 2. + i;
+    x.at(i) = 1. + i;
+    y.at(i) = 2. + i;
   }
 
   vector_add(x, y, z);
-  EXPECT_TRUE(VEC(z, 0) == 3. && VEC(z, 1) == 5. && VEC(z, 2) == 7. &&
-              VEC(z, 3) == 9.);
+  EXPECT_TRUE(z.at(0) == 3. && z.at(1) == 5. && z.at(2) == 7. && z.at(3) == 9.);
 }
 
 TEST(LinearAlgebra, MatrixVectorMul)

@@ -1,9 +1,9 @@
 
 #include "linear_algebra.h"
 
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
 
 vector::vector(int _n)
 {
