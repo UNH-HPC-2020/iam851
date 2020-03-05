@@ -60,3 +60,6 @@ endif()
   
 
 add_executable(test_integration test_integration.cxx)
+
+add_executable(test_average test_average.cxx)
+target_link_libraries(test_average PRIVATE xtensor)
