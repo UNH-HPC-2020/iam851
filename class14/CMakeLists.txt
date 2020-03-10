@@ -5,6 +5,8 @@ project(LinearAlgebra)
 
 enable_testing()
 
+find_package(OpenMP)
+
 # If we knew GoogleTest is installed, we can just use the following single line
 find_package(GTest QUIET)
 
@@ -63,3 +65,17 @@ add_executable(test_integration test_integration.cxx)
 
 add_executable(test_average test_average.cxx)
 target_link_libraries(test_average PRIVATE xtensor)
+if (OpenMP_CXX_FOUND)
+  target_link_libraries(test_average PRIVATE OpenMP::OpenMP_CXX)
+endif()
+
+# This is how we could use OpenMP in C if we wanted to
+# if (OpenMP_C_FOUND)
+#   target_link_libraries(<target> PRIVATE OpenMP::OpenMP_C)
+# endif()
+
+# This is how we could use OpenMP in Fortran if we wanted to
+# if (OpenMP_Fortran_FOUND)
+#   target_link_libraries(<target> PRIVATE OpenMP::OpenMP_Fortran)
+# endif()
+
