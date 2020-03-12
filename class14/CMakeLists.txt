@@ -79,3 +79,7 @@ endif()
 #   target_link_libraries(<target> PRIVATE OpenMP::OpenMP_Fortran)
 # endif()
 
+if (OpenMP_CXX_FOUND)
+  add_executable(test_openmp test_openmp.cxx)
+  target_link_libraries(test_openmp PRIVATE OpenMP::OpenMP_CXX)
+endif()
