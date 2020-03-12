@@ -1,5 +1,5 @@
 
-#include <iostream>
+#include <cstdio>
 #include <omp.h>
 
 // ----------------------------------------------------------------------
@@ -7,15 +7,15 @@
 
 int main(int argc, char** argv)
 {
-  std::cout << "Hi, just starting\n";
+  printf("Hi, just starting\n");
 
 #pragma omp parallel
   {
     int thread = omp_get_thread_num();
     int n_threads = omp_get_num_threads();
-    std::cout << "Hi, I'm thread " << thread << " of " << n_threads << "\n";
+    printf("Hi, I'm thread %d of %d\n", thread, n_threads);
   }
 
-  std::cout << "I'm about to be done.\n";
+  printf("I'm about to be done.\n");
   return 0;
 }
