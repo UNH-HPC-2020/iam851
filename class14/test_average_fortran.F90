@@ -10,6 +10,7 @@ subroutine vector_average(cc, nc, n)
   
   integer :: i
 
+  !$omp parallel do
   do i = 0, n-1
      cc(i) = .5 * (nc(i) + nc(i+1))
   end do
