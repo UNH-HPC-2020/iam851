@@ -62,6 +62,9 @@ endif()
   
 
 add_executable(test_integration test_integration.cxx)
+if (OpenMP_CXX_FOUND)
+  target_link_libraries(test_integration PRIVATE OpenMP::OpenMP_CXX)
+endif()
 
 add_executable(test_average test_average.cxx)
 target_link_libraries(test_average PRIVATE xtensor)
