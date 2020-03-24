@@ -17,9 +17,13 @@ int main(int argc, char** argv)
   double dx = 1. / N;
 
   double t_beg = Wtime();
-#pragma omp parallel for
-  for (int i = 0; i < N; i++) {
-    sum += .5 * dx * (f(i * dx) + f((i + 1) * dx));
+#pragma omp parallel
+  {
+    double local_sum = 0.;
+#pragma omp for
+    for (int i = 0; i < N; i++) {
+      local_sum += .5 * dx * (f(i * dx) + f((i + 1) * dx));
+    }
   }
   double t_end = Wtime();
   std::cout << "took " << t_end - t_beg << " sec.\n";
