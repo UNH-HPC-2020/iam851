@@ -26,8 +26,9 @@ int main(int argc, char** argv)
   const int MX = 400;
   const int MY = 400;
 
-  const std::complex<double> z0 = -2. - 1.i;
-  const std::complex<double> z1 = 1. + 1.i;
+  const std::complex<double> I(0., 1.);
+  const std::complex<double> z0 = -2. - 1. * I;
+  const std::complex<double> z1 = 1. + 1. * I;
 
   auto data = xt::empty<int, xt::layout_type::column_major>({MX, MY});
 
@@ -36,7 +37,7 @@ int main(int argc, char** argv)
 
   for (int iy = 0; iy < MY; iy++) {
     for (int ix = 0; ix < MX; ix++) {
-      std::complex<double> c = z0 + dx * ix + dy * iy * 1i;
+      std::complex<double> c = z0 + dx * ix + dy * iy * 1. * I;
       data(ix, iy) = calc_pixel(c);
     }
   }
@@ -44,7 +45,7 @@ int main(int argc, char** argv)
   FILE* file = fopen("mandelbrot.asc", "w");
   for (int iy = 0; iy < MY; iy++) {
     for (int ix = 0; ix < MX; ix++) {
-      std::complex<double> c = z0 + dx * ix + dy * iy * 1i;
+      std::complex<double> c = z0 + dx * ix + dy * iy * 1. * I;
       fprintf(file, "%g %g %d\n", std::real(c), std::imag(c), data(ix, iy));
     }
     fprintf(file, "\n");
