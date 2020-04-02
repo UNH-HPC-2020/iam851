@@ -85,4 +85,7 @@ endif()
 if (OpenMP_CXX_FOUND)
   add_executable(test_openmp test_openmp.cxx)
   target_link_libraries(test_openmp PRIVATE OpenMP::OpenMP_CXX)
+
+  add_executable(message_openmp message_openmp.cxx)
+  target_link_libraries(message_openmp PRIVATE OpenMP::OpenMP_CXX)
 endif()
