@@ -23,16 +23,18 @@ int main(int argc, char** argv)
 
   double sum = 0.;
   double dx = 1. / N;
+  int ib, ie;
+  if (rank == 0) {
+    ib = 0;
+    ie = 50;
+  } else if (rank == 1) {
+    ib = 50;
+    ie = 100;
+  }
 
   double t_beg = MPI_Wtime();
-  if (rank == 0) {
-    for (int i = 0; i < 50; i++) {
-      sum += .5 * dx * (f(i * dx) + f((i + 1) * dx));
-    }
-  } else if (rank == 1) {
-    for (int i = 50; i < 100; i++) {
-      sum += .5 * dx * (f(i * dx) + f((i + 1) * dx));
-    }
+  for (int i = ib; i < ie; i++) {
+    sum += .5 * dx * (f(i * dx) + f((i + 1) * dx));
   }
   double t_end = MPI_Wtime();
   std::cout << "took " << t_end - t_beg << " sec.\n";
