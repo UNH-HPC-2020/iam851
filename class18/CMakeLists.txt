@@ -13,3 +13,6 @@ target_link_libraries(mpi_hello PRIVATE MPI::MPI_CXX)
 add_executable(mpi_message mpi_message.cxx)
 target_link_libraries(mpi_message PRIVATE MPI::MPI_CXX)
 
+add_executable(test_integration test_integration.cxx)
+
+
