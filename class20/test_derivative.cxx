@@ -11,11 +11,12 @@ xt::xtensor<double, 1> derivative(const xt::xtensor<double, 1>& f, double dx)
 {
   const int G = 1;
 
-  auto fprime = xt::zeros_like(f);
-
-  auto f_g = xt::pad(f, G);
-
   int N = f.shape(0);
+  auto f_g = xt::pad(f, G);
+  f_g(G + -1) = f_g(G + N - 1);
+  f_g(G + N) = f_g(G + 0);
+
+  auto fprime = xt::zeros_like(f);
   for (int i = 0; i < N; i++) {
     fprime(i) = (f_g(i + G + 1) - f_g(i + G - 1)) / (2. * dx);
   }
