@@ -12,6 +12,12 @@ int main(int argc, char** argv)
 {
   const int N = 100;
 
+  MPI_Init(&argc, &argv);
+
+  int rank, size;
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &size);
+
   double sum = 0.;
   double dx = 1. / N;
 
@@ -23,4 +29,7 @@ int main(int argc, char** argv)
   std::cout << "took " << t_end - t_beg << " sec.\n";
 
   std::cout << "integral is approximately " << sum << "\n";
+
+  MPI_Finalize();
+  return 0;
 }
