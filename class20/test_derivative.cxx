@@ -1,6 +1,7 @@
 
 #include <xtensor/xcsv.hpp>
 #include <xtensor/xio.hpp>
+#include <xtensor/xpad.hpp>
 #include <xtensor/xtensor.hpp>
 
 #include <fstream>
@@ -8,16 +9,17 @@
 
 xt::xtensor<double, 1> derivative(const xt::xtensor<double, 1>& f, double dx)
 {
+  const int G = 1;
+
   auto fprime = xt::zeros_like(f);
 
-  int N = f.shape(0);
+  auto f_g = xt::pad(f, G);
 
-  fprime(0) = (f(1) - f(N-1)) / (2.*dx);
-  for (int i = 1; i < N - 1; i++) {
-    fprime(i) = (f(i+1) - f(i-1)) / (2.*dx);
+  int N = f.shape(0);
+  for (int i = 0; i < N; i++) {
+    fprime(i) = (f_g(i + G + 1) - f_g(i + G - 1)) / (2. * dx);
   }
-  fprime(N-1) = (f(0) - f(N-2)) / (2.*dx);
-  
+
   return fprime;
 }
 
