@@ -41,6 +41,20 @@ public:
     return xt::arange<double>(local_begin(), local_end()) * dx();
   }
 
+  void fill_ghosts(xt::xtensor<double, 1>& f_g) const
+  {
+    const int G = 1; // assumes one ghost point
+    assert(f_g.shape(0) == n_ + 2 * G);
+
+    MPI_Send(&f_g(G + 0), 1, MPI_DOUBLE, rank_left(), 123, comm());
+    MPI_Recv(&f_g(G + n_), 1, MPI_DOUBLE, rank_right(), 123, comm(),
+             MPI_STATUS_IGNORE);
+
+    MPI_Send(&f_g(G + n_ - 1), 1, MPI_DOUBLE, rank_right(), 456, comm());
+    MPI_Recv(&f_g(G + -1), 1, MPI_DOUBLE, rank_left(), 456, comm(),
+             MPI_STATUS_IGNORE);
+  }
+
 private:
   MPI_Comm comm_;
   int rank_;
@@ -56,25 +70,14 @@ xt::xtensor<double, 1> derivative(const MPIDomain& domain,
 {
   const int G = 1;
 
-  auto f_g = xt::pad(f, G);
-
-  int n = domain.n();
   double dx = domain.dx();
-  assert(f.shape(0) == n);
 
-  // fill ghosts
-  MPI_Send(&f_g(G + 0), 1, MPI_DOUBLE, domain.rank_left(), 123, domain.comm());
-  MPI_Recv(&f_g(G + n), 1, MPI_DOUBLE, domain.rank_right(), 123, domain.comm(),
-           MPI_STATUS_IGNORE);
-
-  MPI_Send(&f_g(G + n - 1), 1, MPI_DOUBLE, domain.rank_right(), 456,
-           domain.comm());
-  MPI_Recv(&f_g(G + -1), 1, MPI_DOUBLE, domain.rank_left(), 456, domain.comm(),
-           MPI_STATUS_IGNORE);
+  auto f_g = xt::pad(f, G);
+  domain.fill_ghosts(f_g);
 
 #if 1
   auto fprime = xt::zeros_like(f);
-  for (int i = 0; i < n; i++) {
+  for (int i = 0; i < fprime.shape(0); i++) {
     fprime(i) = (f_g(i + G + 1) - f_g(i + G - 1)) / (2. * dx);
   }
 
