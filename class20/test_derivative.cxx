@@ -26,6 +26,8 @@ public:
   MPI_Comm comm() const { return comm_; }
   int rank() const { return rank_; }
   int size() const { return size_; }
+  int rank_left() const { return rank_ > 0 ? rank_ - 1 : size_ - 1; }
+  int rank_right() const { return rank_ < size_ - 1 ? rank_ + 1 : 0; }
 
   int N() const { return N_; }
   int n() const { return n_; }
@@ -61,14 +63,13 @@ xt::xtensor<double, 1> derivative(const MPIDomain& domain,
   assert(f.shape(0) == n);
 
   // fill ghosts
-  int left = domain.rank() > 0 ? domain.rank() - 1 : domain.size() - 1;
-  int right = domain.rank() < domain.size() - 1 ? domain.rank() + 1 : 0;
-  MPI_Send(&f_g(G + 0), 1, MPI_DOUBLE, left, 123, domain.comm());
-  MPI_Recv(&f_g(G + n), 1, MPI_DOUBLE, right, 123, domain.comm(),
+  MPI_Send(&f_g(G + 0), 1, MPI_DOUBLE, domain.rank_left(), 123, domain.comm());
+  MPI_Recv(&f_g(G + n), 1, MPI_DOUBLE, domain.rank_right(), 123, domain.comm(),
            MPI_STATUS_IGNORE);
 
-  MPI_Send(&f_g(G + n - 1), 1, MPI_DOUBLE, right, 456, domain.comm());
-  MPI_Recv(&f_g(G + -1), 1, MPI_DOUBLE, left, 456, domain.comm(),
+  MPI_Send(&f_g(G + n - 1), 1, MPI_DOUBLE, domain.rank_right(), 456,
+           domain.comm());
+  MPI_Recv(&f_g(G + -1), 1, MPI_DOUBLE, domain.rank_left(), 456, domain.comm(),
            MPI_STATUS_IGNORE);
 
 #if 1
