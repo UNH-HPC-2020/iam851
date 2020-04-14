@@ -31,6 +31,9 @@ public:
   int n() const { return n_; }
   double dx() const { return dx_; }
 
+  int local_begin() const { return rank_ * n_; }
+  int local_end() const { return (rank_ + 1) * n_; }
+
 private:
   MPI_Comm comm_;
   int rank_;
@@ -85,9 +88,8 @@ int main(int argc, char** argv)
   MPIDomain domain(MPI_COMM_WORLD, N, 2. * M_PI);
 
   // create coordinates
-  auto x = xt::arange<double>(domain.rank() * domain.n(),
-                              (domain.rank() + 1) * domain.n()) *
-           domain.dx();
+  auto x =
+    xt::arange<double>(domain.local_begin(), domain.local_end()) * domain.dx();
 
   // our original function f
   auto f = sin(x);
