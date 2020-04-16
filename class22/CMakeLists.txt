@@ -38,3 +38,6 @@ endif()
 
 add_executable(test_heat_eqn test_heat_eqn.cxx)
 target_link_libraries(test_heat_eqn PRIVATE m xtensor MPI::MPI_CXX)
+
+add_executable(heat_eqn_solve heat_eqn_solve.cxx)
+target_link_libraries(heat_eqn_solve PRIVATE m xtensor MPI::MPI_CXX)
