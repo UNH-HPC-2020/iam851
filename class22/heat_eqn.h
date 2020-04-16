@@ -12,15 +12,17 @@
 namespace heat_eqn
 {
 
-inline xt::xtensor<double, 1> calc_rhs(const xt::xtensor<double, 1>& f, double dx)
+inline xt::xtensor<double, 1> calc_rhs(const xt::xtensor<double, 1>& f,
+                                       double dx, double kappa)
 {
   const int G = 1;
 
   auto f_g = xt::pad(f, G);
   // TODO: fill ghost points assuming periodic b.c.
 
-  // Python equivalent: return (f_g[2:] - 2 * f_g[1;-1] + f_g[:-2]) / (dx^2);
-  return (xt::view(f_g, xt::range(2, _)) -
+  // Python equivalent: return kappa * (f_g[2:] - 2 * f_g[1;-1] + f_g[:-2]) / (dx^2);
+  return kappa *
+         (xt::view(f_g, xt::range(2, _)) -
           2. * xt::view(f_g, xt::range(1, -1)) +
           xt::view(f_g, xt::range(_, -2))) /
          (dx * dx);

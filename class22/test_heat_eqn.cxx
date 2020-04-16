@@ -16,12 +16,13 @@ int main(int argc, char** argv)
 
   const int N = 100;
   double dx = 2. * M_PI / N;
+  double kappa = .7;
 
   auto x = xt::arange<double>(0, N) * dx;
   auto f = cos(x);
-  auto ref = -cos(x);
+  auto ref = -kappa * cos(x);
 
-  auto rhs = heat_eqn::calc_rhs(f, dx);
+  auto rhs = heat_eqn::calc_rhs(f, dx, kappa);
 
   std::ofstream out("f.csv");
   xt::dump_csv(out, xt::stack(xt::xtuple(x, f, rhs, ref), 1));
