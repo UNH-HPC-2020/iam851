@@ -41,3 +41,6 @@ target_link_libraries(test_heat_eqn PRIVATE m xtensor MPI::MPI_CXX)
 
 add_executable(heat_eqn_solve heat_eqn_solve.cxx)
 target_link_libraries(heat_eqn_solve PRIVATE m xtensor MPI::MPI_CXX)
+
+add_executable(mpi_dl_test mpi_dl_test.cxx)
+target_link_libraries(mpi_dl_test PRIVATE MPI::MPI_CXX)
