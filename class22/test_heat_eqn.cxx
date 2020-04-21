@@ -26,7 +26,7 @@ int main(int argc, char** argv)
   auto f = cos(x);
   auto ref = -kappa * cos(x);
 
-  auto rhs = heat_eqn::calc_rhs(f, dx, kappa);
+  auto rhs = heat_eqn::calc_rhs(domain, f, kappa);
 
   std::ofstream out("f-" + std::to_string(domain.rank()) + ".csv");
   xt::dump_csv(out, xt::stack(xt::xtuple(x, f, rhs, ref), 1));

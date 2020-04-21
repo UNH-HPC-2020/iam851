@@ -19,8 +19,9 @@ namespace heat_eqn
 //
 // u_t = kappa u_xx
 
-inline xt::xtensor<double, 1> calc_rhs(const xt::xtensor<double, 1>& f,
-                                       double dx, double kappa)
+inline xt::xtensor<double, 1> calc_rhs(const MPIDomain& domain,
+                                       const xt::xtensor<double, 1>& f,
+                                       double kappa)
 {
   const int G = 1;
 
@@ -31,6 +32,7 @@ inline xt::xtensor<double, 1> calc_rhs(const xt::xtensor<double, 1>& f,
 
   // Python equivalent: return kappa * (f_g[2:] - 2 * f_g[1;-1] + f_g[:-2]) /
   // (dx^2);
+  double dx = domain.dx();
   return kappa *
          (xt::view(f_g, xt::range(2, _)) -
           2. * xt::view(f_g, xt::range(1, -1)) +

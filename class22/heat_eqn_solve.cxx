@@ -19,6 +19,7 @@ int main(int argc, char** argv)
   const double kappa = .01;
 
   MPI_Init(&argc, &argv);
+  MPIDomain domain(MPI_COMM_WORLD, N, 2. * M_PI);
 
   double dx = 2. * M_PI / N;
   double dt = .5 * sqr(dx) / kappa; // pick dt to satisfy CFL condition
@@ -36,7 +37,7 @@ int main(int argc, char** argv)
     // A simple forward Euler step x^{n+1} = x^{n} + dt * rhs(x^n)
     // works fine for integrating this equation:
 
-    auto rhs = heat_eqn::calc_rhs(f, dx, kappa);
+    auto rhs = heat_eqn::calc_rhs(domain, f, kappa);
     f += dt * rhs;
   }
 
