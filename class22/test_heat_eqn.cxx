@@ -27,8 +27,8 @@ int main(int argc, char** argv)
   std::ofstream out("f.csv");
   xt::dump_csv(out, xt::stack(xt::xtuple(x, f, rhs, ref), 1));
 
-  // TODO: add an automated check that checks that the calculated r.h.s. indeed
-  // matches (up to some tolerance the reference result -cos(x)
+  auto max_difference = xt::amax(abs(rhs - ref));
+  assert(max_difference() < 1e-3);
 
   MPI_Finalize();
   return 0;
