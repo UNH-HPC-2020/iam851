@@ -12,19 +12,23 @@
 
 int main(int argc, char** argv)
 {
-  MPI_Init(&argc, &argv);
-
   const int N = 100;
-  double dx = 2. * M_PI / N;
   double kappa = .7;
 
-  auto x = xt::arange<double>(0, N) * dx;
+  MPI_Init(&argc, &argv);
+  MPIDomain domain(MPI_COMM_WORLD, N, 2. * M_PI);
+
+  // create coordinates
+  auto x = domain.coords();
+
+  double dx = 2. * M_PI / N;
+
   auto f = cos(x);
   auto ref = -kappa * cos(x);
 
   auto rhs = heat_eqn::calc_rhs(f, dx, kappa);
 
-  std::ofstream out("f.csv");
+  std::ofstream out("f-" + std::to_string(domain.rank()) + ".csv");
   xt::dump_csv(out, xt::stack(xt::xtuple(x, f, rhs, ref), 1));
 
   auto max_difference = xt::amax(abs(rhs - ref));

@@ -2,6 +2,8 @@
 #ifndef HEAT_EQN_H
 #define HEAT_EQN_H
 
+#include "mpi_domain.h"
+
 #include <xtensor/xcsv.hpp>
 #include <xtensor/xio.hpp>
 #include <xtensor/xpad.hpp>
