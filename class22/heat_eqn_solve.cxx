@@ -21,16 +21,18 @@ int main(int argc, char** argv)
   MPI_Init(&argc, &argv);
   MPIDomain domain(MPI_COMM_WORLD, N, 2. * M_PI);
 
-  double dx = 2. * M_PI / N;
-  double dt = .5 * sqr(dx) / kappa; // pick dt to satisfy CFL condition
+  double dt = .5 * sqr(domain.dx()) / kappa; // pick dt to satisfy CFL condition
 
-  auto x = xt::arange<double>(0, N) * dx;
+  // create coordinates
+  auto x = domain.coords();
+
   auto f = xt::eval(exp(-sqr(x - M_PI) / sqr(.5)));
 
   for (int n = 0; n < n_timesteps; n++) {
     // write out current solution every so many steps
     if (n % out_every == 0) {
-      std::ofstream out("f" + std::to_string(n) + ".csv");
+      std::ofstream out("f" + std::to_string(n) + "-" +
+                        std::to_string(domain.rank()) + ".csv");
       xt::dump_csv(out, xt::stack(xt::xtuple(x, f), 1));
     }
 
