@@ -26,9 +26,7 @@ inline xt::xtensor<double, 1> calc_rhs(const MPIDomain& domain,
   const int G = 1;
 
   auto f_g = xt::pad(f, G);
-  int N = f.size();
-  f_g(G - 1) = f_g(G + N - 1);
-  f_g(G + N) = f_g(G + 0);
+  domain.fill_ghosts(f_g);
 
   // Python equivalent: return kappa * (f_g[2:] - 2 * f_g[1;-1] + f_g[:-2]) /
   // (dx^2);
