@@ -23,7 +23,9 @@ inline xt::xtensor<double, 1> calc_rhs(const xt::xtensor<double, 1>& f,
   const int G = 1;
 
   auto f_g = xt::pad(f, G);
-  // TODO: fill ghost points assuming periodic b.c.
+  int N = f.size();
+  f_g(G - 1) = f_g(G + N - 1);
+  f_g(G + N) = f_g(G + 0);
 
   // Python equivalent: return kappa * (f_g[2:] - 2 * f_g[1;-1] + f_g[:-2]) /
   // (dx^2);
