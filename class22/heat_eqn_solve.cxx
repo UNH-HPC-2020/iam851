@@ -98,25 +98,48 @@ int main(int argc, char** argv)
 
   auto f = xt::eval(exp(-sqr(x - M_PI) / sqr(.5)));
 
+  double t_rhs = 0.;
+  double t_upd = 0.;
+  double t_out = 0.;
+  int c_rhs = 0;
+  int c_upd = 0;
+  int c_out = 0;
   double t_beg = MPI_Wtime();
+
   for (int n = 0; n < n_timesteps; n++) {
     // write out current solution every so many steps
     if (out_every > 0 && (n % out_every == 0)) {
+      t_out -= MPI_Wtime();
       write_output_one(domain, x, f, n / out_every);
+      t_out += MPI_Wtime();
+      c_out++;
     }
 
     // A simple forward Euler step x^{n+1} = x^{n} + dt * rhs(x^n)
     // works fine for integrating this equation:
 
+    t_rhs -= MPI_Wtime();
     auto rhs = heat_eqn::calc_rhs(domain, f, kappa);
+    t_rhs += MPI_Wtime();
+    c_rhs++;
+
+  
+    t_upd -= MPI_Wtime();
     f += dt * rhs;
+    t_upd += MPI_Wtime();
+    c_upd++;
   }
+
   double t_end = MPI_Wtime();
 
   if (rank == 0) {
     printf("Integrated %d steps and wrote %d output files. Walltime = %g s\n",
            n_timesteps, out_every > 0 ? n_timesteps / out_every : 0,
            t_end - t_beg);
+    printf("           TOTAL (s)      COUNT    AVG (us)\n");
+    printf("rhs     %12.6f %10d %12.6g\n", t_rhs, c_rhs, t_rhs * 1e6 / c_rhs);
+    printf("upd     %12.6f %10d %12.6g\n", t_upd, c_upd, t_upd * 1e6 / c_upd);
+    printf("out     %12.6f %10d %12.6g\n", t_out, c_out, t_out * 1e6 / c_out);
   }
 
   MPI_Finalize();
