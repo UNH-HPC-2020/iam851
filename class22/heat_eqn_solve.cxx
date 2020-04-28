@@ -14,6 +14,14 @@ auto sqr(T x)
   return x * x;
 }
 
+void write_output(const MPIDomain& domain, const xt::xtensor<double, 1>& x,
+                  const xt::xtensor<double, 1>& f, int cnt)
+{
+  std::ofstream out("f" + std::to_string(cnt) + "-" +
+                    std::to_string(domain.rank()) + ".csv");
+  xt::dump_csv(out, xt::stack(xt::xtuple(x, f), 1));
+}
+
 int main(int argc, char** argv)
 {
   int N = 100;
@@ -75,9 +83,7 @@ int main(int argc, char** argv)
   for (int n = 0; n < n_timesteps; n++) {
     // write out current solution every so many steps
     if (out_every > 0 && (n % out_every == 0)) {
-      std::ofstream out("f" + std::to_string(n / out_every) + "-" +
-                        std::to_string(domain.rank()) + ".csv");
-      xt::dump_csv(out, xt::stack(xt::xtuple(x, f), 1));
+      write_output(domain, x, f, n / out_every);
     }
 
     // A simple forward Euler step x^{n+1} = x^{n} + dt * rhs(x^n)
