@@ -71,6 +71,7 @@ int main(int argc, char** argv)
 
   auto f = xt::eval(exp(-sqr(x - M_PI) / sqr(.5)));
 
+  double t_beg = MPI_Wtime();
   for (int n = 0; n < n_timesteps; n++) {
     // write out current solution every so many steps
     if (out_every > 0 && (n % out_every == 0)) {
@@ -84,6 +85,13 @@ int main(int argc, char** argv)
 
     auto rhs = heat_eqn::calc_rhs(domain, f, kappa);
     f += dt * rhs;
+  }
+  double t_end = MPI_Wtime();
+
+  if (rank == 0) {
+    printf("Integrated %d steps and wrote %d output files. Walltime = %g s\n",
+           n_timesteps, out_every > 0 ? n_timesteps / out_every : 0,
+           t_end - t_beg);
   }
 
   MPI_Finalize();
