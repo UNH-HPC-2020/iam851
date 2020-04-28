@@ -22,6 +22,25 @@ void write_output(const MPIDomain& domain, const xt::xtensor<double, 1>& x,
   xt::dump_csv(out, xt::stack(xt::xtuple(x, f), 1));
 }
 
+void write_output_one(const MPIDomain& domain, const xt::xtensor<double, 1>& x,
+                      const xt::xtensor<double, 1>& f, int cnt)
+{
+  // This allocates the global arrays on ranks != 0, too, which isn't needed,
+  // but let's keep it simple
+  auto x_global = xt::empty<double>({domain.N()});
+  auto f_global = xt::empty<double>({domain.N()});
+
+  MPI_Gather(x.data(), x.size(), MPI_DOUBLE, x_global.data(), domain.n(),
+             MPI_DOUBLE, 0, domain.comm());
+  MPI_Gather(f.data(), f.size(), MPI_DOUBLE, f_global.data(), domain.n(),
+             MPI_DOUBLE, 0, domain.comm());
+
+  if (domain.rank() == 0) {
+    std::ofstream out("f" + std::to_string(cnt) + ".csv");
+    xt::dump_csv(out, xt::stack(xt::xtuple(x_global, f_global), 1));
+  }
+}
+
 int main(int argc, char** argv)
 {
   int N = 100;
@@ -83,7 +102,7 @@ int main(int argc, char** argv)
   for (int n = 0; n < n_timesteps; n++) {
     // write out current solution every so many steps
     if (out_every > 0 && (n % out_every == 0)) {
-      write_output(domain, x, f, n / out_every);
+      write_output_one(domain, x, f, n / out_every);
     }
 
     // A simple forward Euler step x^{n+1} = x^{n} + dt * rhs(x^n)
