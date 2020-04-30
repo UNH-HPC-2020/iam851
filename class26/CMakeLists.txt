@@ -12,3 +12,6 @@ target_link_libraries(params PUBLIC MPI::MPI_CXX)
 
 add_executable(mpi_pingpong mpi_pingpong.cxx)
 target_link_libraries(mpi_pingpong PRIVATE params)
+
+add_executable(memory memory.c)
+target_link_libraries(memory PRIVATE params)
